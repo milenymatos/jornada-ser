@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Diário de Fugas e Gatilhos · Jornada SER</title>
+<meta name="description" content="Diário de Fugas e Gatilhos do Método SER.">
+<meta name="theme-color" content="#F4EEE5">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/base.css">
+<style>
+.luz i:nth-child(1){width:300px;height:300px;right:-140px;top:60px;background:#E8C4B0}
+.luz i:nth-child(2){width:260px;height:260px;left:-150px;top:520px;background:#D9CCDA;animation-delay:-9s}
+h1{font-family:var(--serif);font-weight:400;font-size:62px;line-height:.86;letter-spacing:-.035em;margin-top:20px}
+h1 span{display:block;font-style:italic;font-weight:300;color:var(--cobre);padding-left:.9em}
+.lead{font-size:15.5px;line-height:1.5;margin-top:16px;color:var(--sec);max-width:31ch}
+/* a frase que se compõe enquanto ela responde */
+.frase{position:sticky;top:0;z-index:6;margin:26px calc(-1*var(--m)) 0;padding:16px var(--m) 18px;background:rgba(244,238,229,.88);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  font-family:var(--serif);font-size:23px;line-height:1.22;letter-spacing:-.01em}
+.frase em{font-style:italic;color:var(--cobre);animation:palavra .6s ease-out}
+.frase.longa{font-size:19px}
+.frase .vz{display:inline-block;width:42px;height:2px;background:rgba(60,32,63,.22);vertical-align:.3em;border-radius:2px}
+@keyframes palavra{from{opacity:0}}
+/* o fio: quatro nós, um por pergunta */
+.fio{position:relative;margin-top:12px;padding-left:44px}
+.fio svg.linha{position:absolute;left:0;top:0;width:30px;height:100%;overflow:visible}
+.no{position:relative;padding:26px 0 18px}
+.no .n{position:absolute;left:-44px;top:30px;width:30px;height:30px;display:grid;place-items:center}
+.no .n i{width:14px;height:14px;border-radius:50%;background:var(--creme);box-shadow:inset 0 0 0 2px rgba(60,32,63,.35);transition:background-color .5s,box-shadow .5s,transform .6s var(--mola)}
+.no.ok .n i{background:var(--cobre);box-shadow:0 0 0 6px rgba(167,94,72,.16),0 0 18px rgba(167,94,72,.5);transform:scale(1.15)}
+.no h2{font-family:var(--serif);font-weight:500;font-size:28px;line-height:1.05;letter-spacing:-.015em}
+.no p.dica{font-size:14px;color:var(--sec);margin-top:6px;line-height:1.4}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.chip[aria-pressed="true"]{background:var(--cobre)}
+.no .campo{margin-top:10px}
+.relato{margin-top:20px;border-radius:30px;background:var(--creme2);padding:22px 20px 20px}
+.relato h2{font-family:var(--serif);font-style:italic;font-weight:400;font-size:28px;line-height:1.05}
+.relato .campo{margin-top:12px;background:rgba(255,255,255,.55)}
+.guardar{margin-top:24px}
+/* semana */
+.semana{margin-top:64px}
+.semana>h2{font-family:var(--serif);font-weight:400;font-size:44px;letter-spacing:-.03em;line-height:.95}
+.semana>h2 span{font-style:italic;color:var(--cobre)}
+.vazio{display:grid;grid-template-columns:84px 1fr;gap:14px;align-items:center;margin-top:18px;color:var(--sec);font-size:14.5px;line-height:1.45}
+.ent{position:relative;margin-top:14px;border-radius:28px;background:rgba(255,255,255,.5);padding:18px 18px 18px}
+.ent.ex{background:rgba(237,228,216,.6)}
+.ent.ex .txt{opacity:.62}
+.ent.novo{animation:pousa 1s var(--mola)}
+@keyframes pousa{from{opacity:0;transform:translateY(-24px) scale(.97)}}
+.ent header{display:flex;justify-content:space-between;align-items:center;font-size:13.5px;color:var(--sec)}
+.ent header svg{display:block}
+.ent .txt{font-family:var(--serif);font-size:22px;line-height:1.22;margin-top:8px}
+.ent .txt em{font-style:italic;color:var(--cobre)}
+.ent blockquote{margin-top:10px;font-size:15px;line-height:1.5;color:var(--ameixa);padding-left:14px;box-shadow:inset 2px 0 0 var(--pessego)}
+.ent .exr{font-family:var(--serif);font-style:italic;color:var(--cobre);font-size:16px}
+.padrao{margin:30px calc(-1 * var(--m) + 8px) 0;border-radius:34px;background:var(--violeta);color:var(--creme);padding:30px 24px;position:relative;overflow:hidden;isolation:isolate}
+.padrao::before{content:"";position:absolute;width:240px;height:240px;left:-80px;bottom:-110px;border-radius:50%;background:var(--cobre);filter:blur(60px);opacity:.6;z-index:-1}
+.padrao::after{content:"";position:absolute;width:180px;height:180px;right:-60px;top:-70px;border-radius:50%;background:#5E3C66;filter:blur(40px);z-index:-1}
+.padrao h2{font-family:var(--serif);font-style:italic;font-weight:400;font-size:20px;opacity:.75}
+.padrao p{font-family:var(--serif);font-size:29px;line-height:1.15;letter-spacing:-.01em;margin-top:8px}
+.padrao small{display:block;font-size:13.5px;opacity:.7;margin-top:14px;line-height:1.45}
+.grupos h3{font-family:var(--serif);font-style:italic;font-weight:400;font-size:19px;color:var(--sec);margin-top:16px}
+.grupos .chips{margin-top:8px}
+.livre{display:block;font-family:var(--serif);font-weight:500;font-size:21px;margin-top:22px}
+.campo.forte{margin-top:8px;background:rgba(255,255,255,.75);box-shadow:inset 0 0 0 1.5px rgba(167,94,72,.45)}
+.campo.forte:focus{box-shadow:0 0 0 2px var(--cobre)}
+</style>
+</head>
+<body>
+<div class="luz" aria-hidden="true"><i></i><i></i></div>
+<header class="topo"><a href="index.html#hub"><svg width="16" height="16" viewBox="0 0 16 16"><path d="M14 8H3M7 3.5 2.5 8 7 12.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>Jornada</a><span class="assin">Mileny Matos</span></header>
+<main>
+<h1 class="revela">Diário de <span>Fugas</span></h1>
+<p class="lead revela" style="animation-delay:.1s">Um instrumento de cura, não de cobrança. Se estiver muito cansada, anote apenas uma palavra.</p>
+
+<form id="f" autocomplete="off">
+<p class="frase" id="frase" aria-live="polite"></p>
+<div class="fio" id="fio">
+  <svg class="linha" aria-hidden="true" preserveAspectRatio="none"><path id="fioBase" fill="none" stroke="#3C203F" stroke-opacity=".18" stroke-width="1.4" stroke-dasharray="2 6" stroke-linecap="round"/><path id="fioFeito" fill="none" stroke="#A75E48" stroke-width="2" stroke-linecap="round"/></svg>
+  <fieldset class="no" data-k="fuga" style="border:0;padding-left:0;padding-right:0;margin:0"><span class="n" aria-hidden="true"><i></i></span>
+    <h2 id="q1">Qual foi o excesso?</h2><div class="chips" role="group" aria-labelledby="q1"></div>
+    <input class="campo" type="text" maxlength="80" placeholder="Ou com suas palavras" aria-label="Excesso, com suas palavras"></fieldset>
+  <fieldset class="no" data-k="gat" style="border:0;padding-left:0;padding-right:0;margin:0"><span class="n" aria-hidden="true"><i></i></span>
+    <h2 id="q2">Qual foi o gatilho?</h2><p class="dica">O que aconteceu antes? Onde você estava? Com quem?</p><div class="chips" role="group" aria-labelledby="q2"></div>
+    <input class="campo" type="text" maxlength="120" placeholder="Com suas palavras" aria-label="Gatilho, com suas palavras"></fieldset>
+  <fieldset class="no" data-k="sent" style="border:0;padding-left:0;padding-right:0;margin:0"><span class="n" aria-hidden="true"><i></i></span>
+    <h2 id="q3">Que sentimento você tentou evitar?</h2><div class="chips" role="group" aria-labelledby="q3"></div>
+    <input class="campo" type="text" maxlength="80" placeholder="Ou com suas palavras" aria-label="Sentimento, com suas palavras"></fieldset>
+  <fieldset class="no" data-k="cons" style="border:0;padding-left:0;padding-right:0;margin:0"><span class="n" aria-hidden="true"><i></i></span>
+    <h2 id="q4">E depois, o que ficou?</h2><p class="dica">Pode escolher mais de uma.</p>
+    <div class="grupos" id="consGrupos" role="group" aria-labelledby="q4"></div>
+    <label class="livre" for="consTxt">Com suas palavras</label>
+    <textarea class="campo forte" id="consTxt" rows="2" maxlength="300" placeholder="O que você sentiu no corpo e na emoção depois?"></textarea></fieldset>
+</div>
+<div class="relato"><h2><label for="relato">Quer contar com suas palavras?</label></h2>
+  <textarea class="campo" id="relato" rows="4" maxlength="1200" placeholder="Opcional. Do jeito que vier."></textarea></div>
+<div class="guardar"><button class="btn" id="anotar" type="submit" disabled>Guardar no diário <svg width="16" height="16" viewBox="0 0 16 16"><path d="M2 8h11M9 3.5 13.5 8 9 12.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>
+</form>
+
+<section class="semana" aria-labelledby="semT">
+  <h2 id="semT">Sua <span>semana</span></h2>
+  <div id="lista"></div>
+  <aside class="padrao" aria-labelledby="padT"><h2 id="padT">Padrão percebido</h2><p id="padTxt"></p><small id="padNota"></small></aside>
+</section>
+</main>
+
+<script src="assets/config.js"></script>
+<script src="assets/jornada.js"></script>
+<script>JS.exigePerfil();</script>
+<script>
+// Vocabulário do documento "Diário de Fugas e Gatilhos" (Mileny Matos)
+const OP={fuga:['Trabalho','Comida','Doação excessiva','Redes sociais','Compras','TV','Isolamento'],
+  sent:['Solidão','Vazio','Sobrecarga','Medo de falhar','Ansiedade','Carência','Tédio','Medo de não ser amada'],
+};
+// "E depois, o que ficou?" — origem de cada opção:
+// [D] Diário de Fugas · [T] Termômetro do SER · [V] Mapa da Virada · [C] Caixa de Ferramentas · [F] Ficha de Evolução · [A] adaptação (não está nos arquivos)
+const CONS=[
+  ['No corpo',['Cansaço' /*T*/,'Dor de cabeça' /*T*/,'Dores no corpo' /*T*/,'Falta de ar' /*T*/,'Drenada, pesada' /*F*/,'Acelerada' /*F*/,'Peso no corpo' /*A*/]],
+  ['Na emoção',['Culpa' /*D,C*/,'Mais ansiedade' /*D*/,'Frustração' /*V*/,'Irritação' /*T*/,'Raiva' /*T,C*/,'Vazio' /*D*/,'Solidão' /*D,C*/,'Sobrecarga' /*T,V*/,'Medo' /*D,C*/,'Vergonha' /*A*/,'Alívio momentâneo' /*A*/]],
+  ['Na rotina',['Atraso' /*D*/]]];
+const $=id=>document.getElementById(id); const esc=t=>String(t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const sel={fuga:{chip:null,txt:''},gat:{chip:null,txt:''},sent:{chip:null,txt:''},cons:{chips:[],txt:''}};
+const junta=a=>a.length<2?(a[0]||''):a.slice(0,-1).join(', ')+' e '+a[a.length-1];
+const val=k=>k==='cons'?junta([...sel.cons.chips.map(x=>x.toLowerCase()),sel.cons.txt].filter(Boolean)):(sel[k].txt||sel[k].chip||'');
+function montaCons(){const g=$('consGrupos'); g.innerHTML='';
+  CONS.forEach(([titulo,lista])=>{const h=document.createElement('h3'); h.textContent=titulo; const box=document.createElement('div'); box.className='chips'; g.append(h,box);
+    lista.forEach(w=>{const b=document.createElement('button'); b.type='button'; b.className='chip'; b.textContent=w; b.setAttribute('aria-pressed','false');
+      b.onclick=()=>{const on=b.getAttribute('aria-pressed')!=='true'; b.setAttribute('aria-pressed',on); sel.cons.chips=on?[...sel.cons.chips,w]:sel.cons.chips.filter(x=>x!==w); if(on&&navigator.vibrate) navigator.vibrate(6); atualiza();}; box.append(b);});});
+  const t=$('consTxt'); t.value=''; t.oninput=()=>{sel.cons.txt=t.value.trim(); atualiza();};}
+function monta(){montaCons(); document.querySelectorAll('.no:not([data-k=cons])').forEach(no=>{const k=no.dataset.k, box=no.querySelector('.chips'); box.innerHTML='';
+  const lista=k==='gat'?gatSug():OP[k];
+  lista.forEach(w=>{const b=document.createElement('button'); b.type='button'; b.className='chip'; b.textContent=w; b.setAttribute('aria-pressed','false');
+    b.onclick=()=>{const on=b.getAttribute('aria-pressed')!=='true'; box.querySelectorAll('.chip').forEach(x=>x.setAttribute('aria-pressed','false')); b.setAttribute('aria-pressed',on);
+      sel[k].chip=on?w:null; if(on&&navigator.vibrate) navigator.vibrate(6); atualiza();}; box.append(b);});
+  const inp=no.querySelector('.campo'); inp.value=''; inp.oninput=()=>{sel[k].txt=inp.value.trim(); atualiza();};});}
+const gatSug=()=>{const meus=[...new Set(JS.read('diario').map(e=>e.gatChip).filter(Boolean))].slice(-3); return meus.length?meus:['Chefe gritou','Projeto novo no trabalho'];};
+const w=(k,txt)=>{const v=val(k); return v?`<em>${esc(k==='cons'?v:v.toLowerCase())}</em>`:'<span class="vz"></span>';};
+function atualiza(){
+  $('frase').innerHTML=`Fugi para ${w('fuga')} depois de ${w('gat')}, evitando sentir ${w('sent')}. Depois ${/ e |, /.test(val('cons'))?'vieram':'veio'} ${w('cons')}.`;
+  $('frase').classList.toggle('longa',$('frase').textContent.length>120);
+  let feitos=0; document.querySelectorAll('.no').forEach((no,i)=>{const ok=!!val(no.dataset.k); no.classList.toggle('ok',ok); if(ok) feitos=i+1;});
+  desenhaFio(feitos); $('anotar').disabled=!(val('fuga')||$('relato').value.trim());}
+$('relato').oninput=atualiza;
+// o fio liga os nós; a parte em cobre avança até o último nó respondido
+function desenhaFio(feitos){const fio=$('fio'), nos=[...document.querySelectorAll('.no')], H=fio.offsetHeight; const svg=fio.querySelector('svg');
+  svg.setAttribute('viewBox',`0 0 30 ${H}`); const ys=nos.map(n=>n.offsetTop+45);
+  let d=`M15 ${ys[0]}`; for(let i=1;i<ys.length;i++){const m=(ys[i-1]+ys[i])/2; d+=` C ${i%2?27:3} ${m-30}, ${i%2?3:27} ${m+30}, 15 ${ys[i]}`;}
+  $('fioBase').setAttribute('d',d); const f=$('fioFeito'); f.setAttribute('d',d); const L=f.getTotalLength();
+  const alvo=feitos? (feitos===4?L:L*(ys[feitos-1]-ys[0])/(ys[3]-ys[0])) : 0;
+  f.style.strokeDasharray=L; f.style.transition=JS.reduced?'none':'stroke-dashoffset 1s cubic-bezier(.2,.7,.2,1)'; f.style.strokeDashoffset=L-alvo;}
+monta(); atualiza(); addEventListener('resize',atualiza); document.fonts&&document.fonts.ready.then(atualiza);
+$('f').onsubmit=e=>{e.preventDefault();
+  JS.push('diario',{t:Date.now(),fuga:val('fuga'),gat:val('gat'),gatChip:sel.gat.chip,sent:val('sent'),cons:val('cons'),consLista:[...sel.cons.chips],consTexto:sel.cons.txt,relato:$('relato').value.trim()});
+  Object.values(sel).forEach(s=>{s.chip=null;s.txt='';}); sel.cons.chips=[]; $('relato').value=''; monta(); atualiza(); lista(true);
+  setTimeout(()=>document.querySelector('.semana').scrollIntoView({behavior:JS.reduced?'auto':'smooth'}),80);};
+// exemplos a partir do exemplo do próprio documento; somem quando ela anota
+const EX=[{d:0,h:'10:30',fuga:'Redes sociais',gat:'Projeto novo no trabalho',sent:'Medo de falhar',cons:'Culpa',relato:''},
+          {d:1,h:'21:40',fuga:'Comida',gat:'Chefe gritou',sent:'Medo',cons:'Culpa',relato:''}];
+const NOMES=['Segunda','Terça','Quarta','Quinta','Sexta','Sábado','Domingo'];
+const nos=e=>`<svg width="74" height="14" viewBox="0 0 74 14" aria-hidden="true"><path d="M7 7 H67" stroke="#A75E48" stroke-opacity=".35" stroke-width="1.4"/>${['fuga','gat','sent','cons'].map((k,i)=>`<circle cx="${7+i*20}" cy="7" r="${e[k]?5:3.5}" fill="${e[k]?'#A75E48':'#F4EEE5'}" stroke="#A75E48" stroke-width="1.4"/>`).join('')}</svg>`;
+const frase=e=>{const p=[]; if(e.fuga)p.push(`Fugi para <em>${esc(e.fuga.toLowerCase())}</em>`); if(e.gat)p.push(`depois de <em>${esc(e.gat.toLowerCase())}</em>`); if(e.sent)p.push(`evitando sentir <em>${esc(e.sent.toLowerCase())}</em>`);
+  let s=p.join(', '); if(s) s+='.'; if(e.cons) s+=` Depois ${/ e |, /.test(e.cons)?'vieram':'veio'} <em>${esc(e.cons.toLowerCase())}</em>.`; return s;};
+function lista(novo){const reais=JS.thisWeek(JS.read('diario')); const L=$('lista');
+  let itens=reais.map(e=>({...e,d:JS.diaIdx(e.t),h:new Date(e.t).toTimeString().slice(0,5)})).reverse(); const ex=!itens.length; if(ex) itens=EX;
+  L.innerHTML=(ex?`<div class="vazio"><svg width="84" height="60" viewBox="0 0 84 60" aria-hidden="true"><path d="M4 50 C 20 10, 40 60, 46 30 S 30 4, 50 12 S 80 40, 80 20" fill="none" stroke="#A75E48" stroke-width="1.6" stroke-linecap="round"/><circle cx="46" cy="30" r="5" fill="#A75E48"/></svg><p>Sua semana começa no primeiro nó. Por enquanto, veja dois exemplos.</p></div>`:'')+
+   itens.map((e,i)=>`<article class="ent ${ex?'ex':''} ${novo&&i===0&&!ex?'novo':''}"><header><span>${NOMES[e.d]} · ${e.h}</span>${ex?'<span class="exr">exemplo</span>':nos(e)}</header>
+     ${frase(e)?`<p class="txt">${frase(e)}</p>`:''}${e.relato?`<blockquote>${esc(e.relato)}</blockquote>`:''}</article>`).join('');
+  padrao(reais);}
+function padrao(reais){const T=$('padTxt'), N=$('padNota');
+  if(reais.length<3){T.textContent='Suas fugas aparecem mais à noite, depois de sobrecarga.'; N.textContent='Exemplo. A partir de 3 anotações, o padrão passa a ser o seu'+(reais.length?` (faltam ${3-reais.length}).`:'.'); return;}
+  const top=k=>{const c={}; reais.forEach(e=>e[k]&&(c[e[k]]=(c[e[k]]||0)+1)); return Object.entries(c).sort((a,b)=>b[1]-a[1])[0]};
+  const noite=reais.filter(e=>new Date(e.t).getHours()>=18).length, f=top('fuga'), s=top('sent');
+  let t=f?`${f[0]} apareceu ${f[1]} ${f[1]>1?'vezes':'vez'} nesta semana.`:''; if(s) t+=` O sentimento que mais se repete: ${s[0].toLowerCase()}.`;
+  if(noite/reais.length>=.6) t+=' A maioria das fugas acontece à noite.';
+  T.textContent=t||'Continue anotando: o padrão aparece com o tempo.'; const nm=((JS.perfil()||{}).nome||'').split(' ')[0]; N.textContent=nm?`${nm}, leve isto para a sua próxima sessão com a Mileny.`:'Leve para a sua próxima sessão com a Mileny.';}
+lista();
+</script>
+</body>
+</html>

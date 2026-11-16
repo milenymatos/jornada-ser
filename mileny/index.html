@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Pré-sessão · Jornada SER</title>
+<meta name="theme-color" content="#2F1B36">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/base.css">
+<style>
+body{max-width:none;padding:0;display:grid;grid-template-columns:380px 1fr;min-height:100dvh;background:linear-gradient(90deg,var(--violeta) 380px,var(--creme) 380px)}
+.luz{max-width:none}
+.luz i:nth-child(1){width:520px;height:520px;right:-160px;top:-160px;background:#E8C4B0}
+.luz i:nth-child(2){width:440px;height:440px;left:380px;bottom:-200px;background:#D9CCDA;animation-delay:-9s}
+/* barra da Mileny */
+aside.lado{position:sticky;top:0;height:100dvh;overflow:auto;background:var(--violeta);color:var(--creme);padding:28px 26px 30px;z-index:3;isolation:isolate}
+aside.lado::before{content:"";position:absolute;width:320px;height:320px;left:-120px;top:120px;border-radius:50%;background:#7A3E52;filter:blur(70px);opacity:.6;z-index:-1}
+aside.lado::after{content:"";position:absolute;width:240px;height:240px;right:-120px;bottom:40px;border-radius:50%;background:var(--cobre);filter:blur(70px);opacity:.35;z-index:-1}
+.marca{display:flex;justify-content:space-between;align-items:baseline}
+.marca b{font-family:var(--serif);font-weight:600;font-size:21px}
+.marca span{font-size:13.5px;opacity:.65}
+.lado h1{font-family:var(--serif);font-weight:400;font-size:62px;line-height:.86;letter-spacing:-.035em;margin-top:34px}
+.lado h1 span{display:block;font-style:italic;font-weight:300;color:var(--pessego);padding-left:.7em}
+.nova{all:unset;cursor:pointer;margin-top:24px;display:flex;align-items:center;justify-content:space-between;width:calc(100% - 38px);background:var(--pessego);color:var(--violeta);border-radius:999px;padding:8px 8px 8px 26px;font-family:var(--serif);font-size:24px;font-weight:500;transition:transform .35s var(--mola)}
+.nova:active{transform:scale(.97)}
+.nova i{width:46px;height:46px;border-radius:50%;background:var(--violeta);color:var(--pessego);display:grid;place-items:center;font-style:normal;font-size:26px;font-family:var(--sans);font-weight:300}
+.lista{list-style:none;padding:0;margin-top:28px;display:grid;gap:4px}
+.cli{all:unset;cursor:pointer;display:grid;grid-template-columns:14px 1fr auto;gap:12px;align-items:center;width:calc(100% - 28px);padding:14px 14px;border-radius:20px;transition:background-color .3s}
+.cli:hover{background:rgba(244,238,229,.06)}
+.cli[aria-current="true"]{background:rgba(244,238,229,.12)}
+.cli .dot{width:12px;height:12px;border-radius:50%;background:rgba(244,238,229,.25)}
+.cli b{display:block;font-family:var(--serif);font-weight:500;font-size:23px;line-height:1.05}
+.cli small{display:block;font-size:12.5px;opacity:.68;margin-top:3px}
+.cli em{font-style:normal;font-size:12px;background:rgba(232,196,176,.18);color:var(--pessego);padding:4px 9px;border-radius:999px;white-space:nowrap}
+.sair{all:unset;cursor:pointer;font-size:13px;opacity:.55;margin-top:24px;padding:8px 0}
+/* resumo */
+main{padding:34px 48px 80px;max-width:1100px}
+.vazio-r{display:grid;place-items:center;min-height:70dvh;text-align:center;color:var(--sec)}
+.vazio-r b{display:block;font-family:var(--serif);font-weight:400;font-size:44px;color:var(--ameixa)}
+.cab{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap}
+.cab h2{font-family:var(--serif);font-weight:400;font-size:84px;line-height:.85;letter-spacing:-.04em}
+.cab .meta{font-size:14px;color:var(--sec);margin-top:12px;line-height:1.5}
+.semana-nav{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,.55);border-radius:999px;padding:6px}
+.semana-nav button{all:unset;cursor:pointer;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;transition:background-color .3s}
+.semana-nav button:hover{background:rgba(60,32,63,.08)}
+.semana-nav span{font-family:var(--serif);font-size:21px;padding:0 10px;white-space:nowrap}
+.acoes-c{display:flex;gap:8px;margin-top:14px}
+.mini{all:unset;cursor:pointer;font-size:13.5px;padding:9px 14px;border-radius:999px;background:rgba(60,32,63,.07)}
+.grade{display:grid;grid-template-columns:1.35fr 1fr;gap:18px;margin-top:34px}
+.bl{border-radius:32px;background:rgba(255,255,255,.55);padding:26px 26px 24px;position:relative;overflow:hidden}
+.bl h3{font-family:var(--serif);font-weight:400;font-size:34px;letter-spacing:-.02em;line-height:1}
+.bl h3 small{font-family:var(--sans);font-size:13.5px;color:var(--sec);letter-spacing:0;margin-left:8px}
+.largo{grid-column:1/3}
+.alto{grid-row:span 2}
+/* termômetro */
+.tubos{display:grid;grid-template-columns:repeat(7,1fr);gap:10px;margin-top:20px}
+.tb{text-align:center}
+.tb svg{width:34px;height:150px;display:block;margin:0 auto;overflow:visible}
+.tb .d{font-size:13px;color:var(--sec);margin-top:8px}
+.tb .n{font-family:var(--serif);font-size:18px;line-height:1.05;margin-top:4px;min-height:19px}
+.tb .s{font-size:12px;color:var(--sec);margin-top:4px;line-height:1.3}
+.tb.sem svg{opacity:.35}
+/* fugas */
+.fios{margin-top:16px;display:grid;gap:10px}
+.fio{display:grid;grid-template-columns:150px 1fr;gap:10px;align-items:center;font-size:15px}
+.fio svg{height:16px;overflow:visible}
+.palavras{margin-top:16px;line-height:1.25}
+.palavras span{font-family:var(--serif);display:inline-block;margin:0 12px 4px 0;color:var(--ameixa)}
+.palavras span.c{color:var(--cobre);font-style:italic}
+.rot{font-size:13px;color:var(--sec);margin-top:18px}
+/* padrão */
+.padrao{background:var(--violeta);color:var(--creme);isolation:isolate}
+.padrao::before{content:"";position:absolute;width:280px;height:280px;left:-90px;bottom:-140px;border-radius:50%;background:var(--cobre);filter:blur(60px);opacity:.6;z-index:-1}
+.padrao h3{font-size:22px;font-style:italic;opacity:.75}
+.padrao p{font-family:var(--serif);font-size:30px;line-height:1.15;margin-top:12px}
+.padrao small{display:block;font-size:13px;opacity:.65;margin-top:14px}
+/* sos */
+.vir{list-style:none;padding:0;margin-top:14px}
+.vir li{padding:12px 0}
+.vir li+li{border-top:1px solid rgba(60,32,63,.08)}
+.vir b{font-family:var(--serif);font-weight:500;font-size:22px}
+.vir p{font-size:13.5px;color:var(--sec);margin-top:4px;line-height:1.45}
+.ok{color:#2E6E73;font-weight:600}
+/* relatos */
+.rel{list-style:none;padding:0;margin-top:14px;columns:2;column-gap:28px}
+.rel li{break-inside:avoid;padding:14px 0}
+.rel q{display:block;font-family:var(--serif);font-style:italic;font-size:23px;line-height:1.25;quotes:"“" "”"}
+.rel small{display:block;font-size:12.5px;color:var(--sec);margin-top:6px}
+.anot{width:100%;border-collapse:collapse;margin-top:14px;font-size:14px}
+.anot th{text-align:left;font-weight:500;color:var(--sec);font-size:12.5px;padding:8px 10px 8px 0}
+.anot td{padding:10px 10px 10px 0;border-top:1px solid rgba(60,32,63,.08);vertical-align:top}
+.anot td:first-child{white-space:nowrap;color:var(--sec)}
+.nada{font-size:14.5px;color:var(--sec);margin-top:12px;font-style:italic}
+/* entrada e diálogo */
+.portao{position:fixed;inset:0;background:var(--violeta);color:var(--creme);display:grid;place-items:center;z-index:50;padding:24px}
+.portao form{max-width:420px;width:100%}
+.portao h1{font-family:var(--serif);font-weight:400;font-size:56px;line-height:.9}
+.portao input,dialog input{display:block;width:100%;margin-top:20px;font:inherit;font-size:18px;color:inherit;background:rgba(244,238,229,.08);border:0;border-radius:16px;padding:15px 16px}
+.portao p{opacity:.7;margin-top:12px;font-size:14.5px}
+.portao[hidden],[hidden]{display:none!important}
+dialog{margin:auto;border:0;border-radius:34px;padding:30px;max-width:520px;width:calc(100% - 32px);background:var(--creme);color:var(--ameixa);box-shadow:0 30px 80px rgba(23,14,26,.35)}
+dialog::backdrop{background:rgba(23,14,26,.55);backdrop-filter:blur(6px)}
+dialog h2{font-family:var(--serif);font-weight:400;font-size:44px;line-height:.95;letter-spacing:-.02em}
+dialog input{background:rgba(60,32,63,.07)}
+dialog .linha{display:flex;gap:10px;margin-top:22px;flex-wrap:wrap;align-items:center}
+.link-box{margin-top:18px;border-radius:18px;background:var(--violeta);color:var(--pessego);padding:14px 16px;font-size:13.5px;word-break:break-all;line-height:1.45}
+.aviso{font-size:13.5px;color:var(--cobre);margin-top:10px;line-height:1.45}
+@media (max-width:900px){body{grid-template-columns:1fr;background:var(--creme)} .alto{grid-row:auto} aside.lado{position:relative;height:auto} main{padding:28px 22px 60px} .grade{grid-template-columns:1fr} .largo{grid-column:auto} .rel{columns:1} .cab h2{font-size:60px}}
+</style>
+</head>
+<body>
+<div class="luz" aria-hidden="true"><i></i><i></i></div>
+<aside class="lado">
+  <div class="marca"><b>Mileny Matos</b><span>Jornada SER</span></div>
+  <h1>Pré-<span>sessão</span></h1>
+  <button class="nova" id="nova">Nova cliente <i aria-hidden="true">+</i></button>
+  <ul class="lista" id="lista" aria-label="Clientes"></ul>
+  <button class="sair" id="sair">Sair deste navegador</button>
+</aside>
+<main id="main"><div class="vazio-r"><div><b>Escolha uma cliente</b><p>O resumo da semana aparece aqui.</p></div></div></main>
+
+<div class="portao" id="portao" hidden>
+  <form id="pForm"><h1>Pré-sessão</h1><p>Abra pelo seu link de terapeuta ou cole a sua chave.</p>
+    <input id="pChave" type="password" autocomplete="current-password" aria-label="Chave de terapeuta" placeholder="Chave">
+    <div class="linha" style="margin-top:18px"><button class="btn" style="background:var(--pessego);color:var(--violeta)">Entrar</button></div><p id="pMsg"></p></form>
+</div>
+
+<dialog id="dNova" aria-labelledby="dT">
+  <form method="dialog" id="fNova">
+    <h2 id="dT">Nova cliente</h2>
+    <input id="nNome" maxlength="60" placeholder="Nome da cliente" aria-label="Nome da cliente" autocomplete="off">
+    <div class="linha"><button class="btn" id="nCriar" value="criar" disabled>Gerar link</button><button class="mini" value="cancel" formnovalidate>Cancelar</button></div>
+  </form>
+  <div id="nRes" hidden>
+    <h2 id="nResT">Link da cliente</h2>
+    <div class="link-box" id="nLink"></div>
+    <p class="aviso">Este link é a chave de acesso dela e só aparece agora. Envie só para ela; se vazar, gere um novo e o antigo para de funcionar.</p>
+    <div class="linha"><button class="btn" id="nCopiar">Copiar link</button><button class="mini" id="nFechar">Fechar</button></div>
+  </div>
+</dialog>
+
+<script src="../assets/config.js"></script>
+<script>
+const API=window.JORNADA_API, LS='jornadaSer.terapeuta', $=id=>document.getElementById(id);
+const esc=t=>String(t??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const BASE=new URL('../', location.href).href;   // onde está o app da cliente
+let CH=localStorage.getItem(LS)||'', atual=null, semana=null, clientes=[];
+const k=new URLSearchParams(location.search).get('t'); if(k){CH=k; localStorage.setItem(LS,k); history.replaceState(null,'',location.pathname);}
+const api=(acao,dados={})=>fetch(API,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({chave:CH,acao,dados})}).then(r=>r.json())
+  .then(j=>{if(!j.ok){if(j.codigo===401||j.codigo===403) portao(j.erro); throw new Error(j.erro);} return j;});
+function portao(m){$('portao').hidden=false; $('pMsg').textContent=m||'';}
+$('pForm').onsubmit=e=>{e.preventDefault(); CH=$('pChave').value.trim(); localStorage.setItem(LS,CH); $('portao').hidden=true; carregar();};
+$('sair').onclick=()=>{localStorage.removeItem(LS); location.reload();};
+const NIV={1:['Vitalidade','#2E6E73','#7FC3B8'],2:['Fluxo','#7C7440','#D3C17A'],3:['Alerta','#A65A14','#F2A64B'],4:['Esgotamento','#7A2410','#F0633A']};
+const quando=t=>{if(!t) return 'sem registros'; const d=(Date.now()-t)/864e5; return d<1?'hoje':d<2?'ontem':`há ${Math.floor(d)} dias`;};
+function carregar(){ if(!CH) return portao(); api('clientes.listar').then(j=>{clientes=j.clientes; lista(); if(atual) abrir(atual,semana);}).catch(()=>{}); }
+function lista(){ $('lista').innerHTML=clientes.map(c=>{const n=c.ultimo_nivel&&NIV[c.ultimo_nivel]; const s=c.semana;
+  const tag=c.status==='pausada'?'<em>pausada</em>':!c.termo.valido?'<em>aguardando aceite</em>':'';
+  return `<li><button class="cli" data-id="${esc(c.id)}" aria-current="${c.id===atual}"><span class="dot" style="${n?`background:${n[2]};box-shadow:0 0 12px ${n[2]}`:''}"></span>
+   <span><b>${esc(c.nome)}</b><small>${s.termometro+s.diario+s.sos?`${s.termometro} termômetro · ${s.diario} diário · ${s.sos} virada`:'Nada nesta semana'} · ${quando(c.ultimo_registro)}</small></span>${tag}</button></li>`}).join('')||'<li class="nada">Nenhuma cliente ainda.</li>';
+  document.querySelectorAll('.cli').forEach(b=>b.onclick=()=>abrir(b.dataset.id));}
+const tubo=(n,i)=>{const y=n?12+(4-n)*30:130, c=n?NIV[n]:[0,'#ccc','#ddd'];
+  return `<svg viewBox="0 0 34 150" aria-hidden="true"><defs><linearGradient id="g${i}" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="${c[1]}"/><stop offset="1" stop-color="${c[2]}"/></linearGradient></defs>
+  <rect x="9" y="2" width="16" height="128" rx="8" fill="#fff" fill-opacity=".6" stroke="#fff"/>${n?`<rect x="13" y="${y}" width="8" height="${130-y}" rx="4" fill="url(#g${i})"/><circle cx="17" cy="136" r="11" fill="url(#g${i})"/><circle cx="14" cy="133" r="3" fill="#fff" opacity=".5"/>`:'<circle cx="17" cy="136" r="11" fill="#fff" fill-opacity=".6" stroke="#fff"/>'}</svg>`;};
+const nos=(n)=>`<svg viewBox="0 0 ${Math.max(1,n)*22} 16" width="${Math.max(1,n)*22}" aria-hidden="true"><path d="M0 8H${n*22}" stroke="#A75E48" stroke-opacity=".35"/>${Array.from({length:n},(_,i)=>`<circle cx="${11+i*22}" cy="8" r="6" fill="#A75E48"/>`).join('')}</svg>`;
+const fmtSem=s=>{const a=new Date(s.inicio+'T12:00'), b=new Date(s.fim+'T12:00'); const f=d=>d.toLocaleDateString('pt-BR',{day:'numeric',month:'short'}).replace('.',''); return `${f(a)} a ${f(b)}`;};
+const desloca=(iso,dias)=>{const d=new Date(iso+'T12:00'); d.setDate(d.getDate()+dias); return d.toISOString().slice(0,10);};
+function abrir(id,sem){atual=id; semana=sem||null; lista();
+  api('resumo',{id,semana}).then(j=>{const r=j.resumo, c=r.cliente, t=r.termometro, d=r.diario, s=r.sos; semana=r.semana.inicio;
+  const termoTxt=c.termo.valido?`Consentimento aceito em ${new Date(c.termo.consentido_em).toLocaleDateString('pt-BR')}`:c.termo.revogado_em?'Consentimento revogado':'Ainda não aceitou o termo';
+  $('main').innerHTML=`<div class="cab revela"><div><h2>${esc(c.nome)}</h2><p class="meta">${termoTxt} · desde ${new Date(c.criada_em).toLocaleDateString('pt-BR')}</p>
+    <div class="acoes-c"><button class="mini" id="aLink">Gerar novo link</button><button class="mini" id="aPausa">${c.status==='pausada'?'Reativar acesso':'Pausar acesso'}</button></div></div>
+    <div class="semana-nav"><button id="sAnt" aria-label="Semana anterior">←</button><span>${fmtSem(r.semana)}</span><button id="sProx" aria-label="Próxima semana">→</button></div></div>
+  <div class="grade">
+   <section class="bl largo revela" style="animation-delay:.08s"><h3>Termômetro da semana <small>${t.registros} ${t.registros===1?'registro':'registros'}</small></h3>
+     <div class="tubos">${t.dias.map((x,i)=>`<div class="tb ${x.nivel?'':'sem'}">${tubo(x.nivel,i)}<p class="d">${x.dia}</p><p class="n">${x.nivel?esc(x.nome):''}</p><p class="s">${esc(x.sintoma||'')}</p></div>`).join('')}</div>
+     ${t.dias.filter(x=>x.gatilho).length?`<p class="rot">O que aconteceu</p><ul class="vir">${t.dias.filter(x=>x.gatilho).map(x=>`<li><b>${x.dia} · ${esc(x.nome)}</b><p>${esc(x.gatilho)}</p></li>`).join('')}</ul>`:''}</section>
+   <section class="bl alto revela" style="animation-delay:.14s"><h3>Fugas <small>${d.total} ${d.total===1?'anotação':'anotações'} · ${d.noite} à noite</small></h3>
+     ${d.total?`<div class="fios">${d.fugas.map(([f,n])=>`<div class="fio"><span>${esc(f)}</span>${nos(n)}</div>`).join('')}</div>
+     <p class="rot">Sentimentos evitados</p><p class="palavras">${d.sentimentos.map(([w,n])=>`<span style="font-size:${18+n*6}px">${esc(w)}</span>`).join('')}</p>
+     <p class="rot">O que ficou depois</p><p class="palavras">${d.consequencias.map(([w,n])=>`<span class="c" style="font-size:${17+n*5}px">${esc(w)}</span>`).join('')}</p>`:'<p class="nada">Nenhuma anotação nesta semana.</p>'}</section>
+   <section class="bl padrao revela" style="animation-delay:.2s"><h3>Padrão percebido</h3><p>${esc(d.padrao||'Ainda sem padrão: são precisas 3 anotações na semana.')}</p><small>Calculado das anotações do Diário. Leitura de apoio, não diagnóstico.</small></section>
+   <section class="bl revela" style="animation-delay:.26s"><h3>Mapa da Virada <small>${s.total} ${s.total===1?'uso':'usos'} · ${s.feitos} ${s.feitos===1?'concluído':'concluídos'}</small></h3>
+     ${s.total?`<ul class="vir">${s.itens.map(x=>`<li><b>${esc(x.micro||'Sem micro-passo')}</b><p>${x.quando} · ${x.feito?'<span class="ok">fez</span>':'não marcou como feito'}${x.desculpas.length?' · desculpa: '+esc(x.desculpas.join(', ')):''}${x.dor.length?' · dor: '+esc(x.dor.join(', ')):''}${x.naoSou?' · “Eu não sou '+esc(x.naoSou)+'”':''}</p></li>`).join('')}</ul>`:'<p class="nada">Não usou nesta semana.</p>'}</section>
+   <section class="bl largo revela" style="animation-delay:.32s"><h3>Anotações do Diário</h3>
+     ${d.anotacoes.length?`<table class="anot"><thead><tr><th>Quando</th><th>Fuga</th><th>Gatilho</th><th>Sentimento</th><th>Depois</th></tr></thead><tbody>${d.anotacoes.map(a=>`<tr><td>${a.quando}</td><td>${esc(a.fuga)}</td><td>${esc(a.gatilho)}</td><td>${esc(a.sentimento)}</td><td>${esc(a.consequencia)}</td></tr>`).join('')}</tbody></table>`:'<p class="nada">—</p>'}</section>
+   <section class="bl largo revela" style="animation-delay:.38s"><h3>Com as palavras dela <small>${r.relatos.length} ${r.relatos.length===1?'relato':'relatos'}</small></h3>
+     ${r.relatos.length?`<ul class="rel">${r.relatos.map(x=>`<li><q>${esc(x.texto)}</q><small>${x.quando} · ${x.ferramenta}${x.contexto?' · '+esc(x.contexto):''}</small></li>`).join('')}</ul>`:'<p class="nada">Nenhum relato livre nesta semana.</p>'}</section>
+  </div>`;
+  $('sAnt').onclick=()=>abrir(id,desloca(semana,-7)); $('sProx').onclick=()=>abrir(id,desloca(semana,7));
+  $('aLink').onclick=()=>{if(confirm('Gerar um novo link? O link atual de '+c.nome+' deixa de funcionar.')) api('cliente.novo_link',{id}).then(j=>mostraLink(j.cliente,j.chave));};
+  $('aPausa').onclick=()=>api('cliente.status',{id,status:c.status==='pausada'?'ativa':'pausada'}).then(carregar);
+ });}
+// nova cliente
+$('nova').onclick=()=>{$('fNova').hidden=false; $('nRes').hidden=true; $('nNome').value=''; $('nCriar').disabled=true; $('dNova').showModal(); $('nNome').focus();};
+$('nNome').oninput=()=>{$('nCriar').disabled=!$('nNome').value.trim();};
+$('fNova').onsubmit=e=>{ if(e.submitter&&e.submitter.value==='cancel') return; e.preventDefault(); $('nCriar').disabled=true;
+  api('cliente.criar',{nome:$('nNome').value.trim()}).then(j=>{mostraLink(j.cliente,j.chave); carregar();}).catch(er=>{$('nCriar').disabled=false; alert(er.message);});};
+function mostraLink(c,chave){const link=BASE+'?k='+encodeURIComponent(chave); if(!$('dNova').open) $('dNova').showModal();
+  $('fNova').hidden=true; $('nRes').hidden=false; $('nResT').textContent='Link de '+c.nome.split(' ')[0]; $('nLink').textContent=link;
+  $('nCopiar').onclick=()=>navigator.clipboard.writeText(link).then(()=>{$('nCopiar').textContent='Copiado';}).catch(()=>{});}
+$('nFechar').onclick=()=>{$('dNova').close(); $('nCopiar').textContent='Copiar link';};
+carregar();
+</script>
+</body>
+</html>
