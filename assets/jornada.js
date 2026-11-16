@@ -31,7 +31,7 @@ const JS = (() => {
     guardaPerfil(j.cliente); if (apagar) ['termometro', 'diario', 'sos', 'fila'].forEach(f => localStorage.removeItem(P + 'c.' + id + '.' + f)); return j; });
 
   // ——— registros locais: jornadaSer.c.<id>.<ferramenta> ———
-  const K = { termo: 'termometro', diario: 'diario', sos: 'sos' };
+  const K = { termo: 'termometro', diario: 'diario', sos: 'sos', pacto: 'pacto' };
   const chave = f => P + 'c.' + id + '.' + f;
   const read = k => id ? getJ(chave(K[k]), []) : [];
   const write = (k, v) => { if (id) setJ(chave(K[k]), v); };
@@ -47,7 +47,7 @@ const JS = (() => {
   const push = salvar;
 
   // ——— fila offline ———
-  let enviando = false, falhas = 0;
+  let enviando = false, falhas = 0, presos = 0;
   const status = () => ({ pendentes: id ? getJ(chave('fila'), []).length : 0, ultima: id ? localStorage.getItem(chave('sinc')) : null, online: navigator.onLine && !falhas, enviando });
   const avisa = () => document.dispatchEvent(new CustomEvent('jornada:sync', { detail: status() }));
   function sincronizar() {
@@ -55,15 +55,15 @@ const JS = (() => {
     const fila = getJ(chave('fila'), []); if (!fila.length) { avisa(); return Promise.resolve(status()); }
     enviando = true; const lote = fila.slice(0, 50), alvo = id;
     return api('sincronizar', { registros: lote }).then(j => {
-      const feitos = new Set([...(j.aceitos || []), ...(j.recusados || []).map(r => r.id)]);
-      falhas = 0;
+      const feitos = new Set([...(j.aceitos || []), ...(j.recusados || []).filter(r => r.motivo !== 'ferramenta').map(r => r.id)]); // ferramenta nova numa API antiga: fica na fila
+      falhas = 0; presos = (j.recusados || []).filter(r => r.motivo === 'ferramenta').length;
       if (alvo === id) { setJ(chave('fila'), getJ(chave('fila'), []).filter(x => !feitos.has(x.id))); localStorage.setItem(chave('sinc'), new Date().toISOString()); }
     }).catch(e => { if (e.rede) falhas++; if (e.codigo === 428 || e.codigo === 403) atualizarPerfil().catch(() => {}); })
-      .finally(() => { enviando = false; avisa(); const p = status().pendentes; if (p && navigator.onLine) setTimeout(sincronizar, falhas ? Math.min(60000, 5000 * 2 ** (falhas - 1)) : 1500); return status(); });
+      .finally(() => { enviando = false; avisa(); const p = status().pendentes; if (p > presos && navigator.onLine) setTimeout(sincronizar, falhas ? Math.min(60000, 5000 * 2 ** (falhas - 1)) : 1500); return status(); });
   }
   // aparelho novo: traz os registros que já estão no servidor
   const restaurar = () => api('meus').then(j => {
-    const por = { termometro: 'termo', diario: 'diario', sos: 'sos' }; let n = 0;
+    const por = { termometro: 'termo', diario: 'diario', sos: 'sos', pacto: 'pacto' }; let n = 0;
     Object.keys(por).forEach(f => { const loc = read(por[f]), tem = new Set(loc.map(x => x.rid));
       j.registros.filter(r => r.ferramenta === f && !tem.has(r.id)).forEach(r => { loc.push({ ...r.dados, rid: r.id }); n++; }); loc.sort((a, b) => a.t - b.t); write(por[f], loc); });
     return n; });

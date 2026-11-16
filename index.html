@@ -117,6 +117,12 @@ body.termo-on{padding-top:0}
 .t-acao .btn{margin-top:14px}
 .t-nao{all:unset;cursor:pointer;margin-left:14px;font-size:15px;color:var(--sec);padding:12px 4px}
 .t-erro{font-size:14px;color:var(--cobre);margin-top:8px;line-height:1.4}
+
+.c-pacto{grid-column:1/3;min-height:160px!important;background:#FBF8F2;flex-direction:row;align-items:flex-end;justify-content:space-between;overflow:hidden}
+.c-pacto .selo-h{position:absolute;right:-14px;top:50%;width:150px;height:150px;transform:translateY(-50%) rotate(-10deg);transition:transform .8s var(--mola)}
+.c-pacto:hover .selo-h{transform:translateY(-50%) rotate(-2deg) scale(1.04)}
+.c-pacto .selo-h svg{width:100%;height:100%;filter:drop-shadow(0 10px 14px rgba(60,32,63,.25))}
+.c-pacto.feito p{color:var(--cobre)}
 </style>
 </head>
 <body class="abre">
@@ -204,12 +210,17 @@ body.termo-on{padding-top:0}
     <div style="position:relative;z-index:1"><h2>Mapa da<br>Virada</h2><p>Para os dias difíceis</p></div>
     <span class="seta" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 18 18"><path d="M3 9h11M10 4l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
   </a>
+  <a class="card c-pacto" href="pacto.html" style="animation-delay:.45s">
+    <div style="position:relative;z-index:1"><h2>Pacto de<br>Mudança</h2><p id="st-pacto">Seu compromisso com você</p></div>
+    <div class="selo-h" id="seloH" aria-hidden="true"></div>
+  </a>
 </nav>
 
 <footer><b>Mileny<br>Matos</b><span class="links"><a href="privacidade.html">Privacidade</a><a href="https://instagram.com/mileny.matos">@mileny.matos</a></span></footer>
 
 <script src="assets/config.js"></script>
 <script src="assets/termo.js"></script>
+<script src="assets/pacto.js"></script>
 <script src="assets/jornada.js"></script>
 <script>
 const h=new Date().getHours();
@@ -219,7 +230,8 @@ for(let i=0;i<=N;i++){const t=i/N*voltas*2*Math.PI,r=a+b*t; pts.push([cx+r*Math.
 const d=(k,o=0)=>pts.slice(0,k+1).map((p,i)=>(i?'L':'M')+(p[0]+o).toFixed(1)+' '+(p[1]+o).toFixed(1)).join('');
 document.getElementById('esp').setAttribute('d',d(N)); document.getElementById('eco').setAttribute('d',d(N,3));
 function render(){
-const termo=JS.read('termo'),diario=JS.read('diario'),sos=JS.read('sos'); const total=termo.length+diario.length+sos.length;
+const termo=JS.read('termo'),diario=JS.read('diario'),sos=JS.read('sos'),pacto=JS.read('pacto'); const total=termo.length+diario.length+sos.length+pacto.length;
+const pu=pacto.sort((a,b)=>a.t-b.t).pop(), cp=document.querySelector('.c-pacto'); cp.classList.toggle('feito',!!pu); document.getElementById('st-pacto').textContent=pu?'Selado em '+new Date(pu.t).toLocaleDateString('pt-BR',{day:'numeric',month:'short'}).replace('.',''):'Seu compromisso com você';
 document.getElementById('nPassos').textContent=total; document.getElementById('tPassos').textContent=total===1?'passo na sua espiral':'passos na sua espiral';
 const k=Math.min(N,24+total*22); const feito=document.getElementById('feito'); feito.setAttribute('d',d(k));
 const m=document.getElementById('marcos');
@@ -238,6 +250,7 @@ const mh=document.getElementById('mh'), alt=140*fr; mh.setAttribute('y',176-alt)
 const sem=JS.thisWeek(diario).length; if(sem) document.getElementById('st-diario').textContent=sem+(sem>1?' anotações':' anotação')+' nesta semana';
 }
 
+document.getElementById('seloH').innerHTML=seloSVG(150);
 // ——— entrada pelo link pessoal, consentimento, abertura e hub ———
 const $=id=>document.getElementById(id), sd=JS.saudacao();
 const telas=['ab','pa','cab']; const so=id=>telas.forEach(t=>$(t).hidden=t!==id);

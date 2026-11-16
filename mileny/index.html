@@ -108,6 +108,19 @@ dialog .linha{display:flex;gap:10px;margin-top:22px;flex-wrap:wrap;align-items:c
 .link-box{margin-top:18px;border-radius:18px;background:var(--violeta);color:var(--pessego);padding:14px 16px;font-size:13.5px;word-break:break-all;line-height:1.45}
 .aviso{font-size:13.5px;color:var(--cobre);margin-top:10px;line-height:1.45}
 @media (max-width:900px){body{grid-template-columns:1fr;background:var(--creme)} .alto{grid-row:auto} aside.lado{position:relative;height:auto} main{padding:28px 22px 60px} .grade{grid-template-columns:1fr} .largo{grid-column:auto} .rel{columns:1} .cab h2{font-size:60px}}
+
+.pacto-b{background:#FBF8F2}
+.pacto-selo{position:absolute;right:26px;top:20px;width:64px;height:64px;transform:rotate(-10deg)}
+.pacto-selo svg{width:100%;height:100%}
+.pacto-g{display:grid;grid-template-columns:minmax(220px,320px) 1fr;gap:34px;margin-top:18px;align-items:start}
+.pacto-assin svg{width:100%;height:auto;display:block;background:rgba(60,32,63,.04);border-radius:16px}
+.pacto-assin path{fill:none;stroke:var(--ameixa);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.pn{font-family:var(--serif);font-size:28px;font-weight:500;margin-top:10px}
+.pd{font-size:13.5px;color:var(--sec);margin-top:4px}
+.pacto-r dt{font-size:13px;color:var(--sec);margin-top:14px}
+.pacto-r dt:first-child{margin-top:0}
+.pacto-r dd{margin:4px 0 0;font-family:var(--serif);font-size:22px;line-height:1.25}
+@media (max-width:900px){.pacto-g{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -142,6 +155,7 @@ dialog .linha{display:flex;gap:10px;margin-top:22px;flex-wrap:wrap;align-items:c
 </dialog>
 
 <script src="../assets/config.js"></script>
+<script src="../assets/pacto.js"></script>
 <script>
 const API=window.JORNADA_API, LS='jornadaSer.terapeuta', $=id=>document.getElementById(id);
 const esc=t=>String(t??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
@@ -159,7 +173,7 @@ function carregar(){ if(!CH) return portao(); api('clientes.listar').then(j=>{cl
 function lista(){ $('lista').innerHTML=clientes.map(c=>{const n=c.ultimo_nivel&&NIV[c.ultimo_nivel]; const s=c.semana;
   const tag=c.status==='pausada'?'<em>pausada</em>':!c.termo.valido?'<em>aguardando aceite</em>':'';
   return `<li><button class="cli" data-id="${esc(c.id)}" aria-current="${c.id===atual}"><span class="dot" style="${n?`background:${n[2]};box-shadow:0 0 12px ${n[2]}`:''}"></span>
-   <span><b>${esc(c.nome)}</b><small>${s.termometro+s.diario+s.sos?`${s.termometro} termômetro · ${s.diario} diário · ${s.sos} virada`:'Nada nesta semana'} · ${quando(c.ultimo_registro)}</small></span>${tag}</button></li>`}).join('')||'<li class="nada">Nenhuma cliente ainda.</li>';
+   <span><b>${esc(c.nome)}</b><small>${s.termometro+s.diario+s.sos?`${s.termometro} termômetro · ${s.diario} diário · ${s.sos} virada`:'Nada nesta semana'} · ${quando(c.ultimo_registro)}${c.pacto_assinado_em?' · pacto selado':''}</small></span>${tag}</button></li>`}).join('')||'<li class="nada">Nenhuma cliente ainda.</li>';
   document.querySelectorAll('.cli').forEach(b=>b.onclick=()=>abrir(b.dataset.id));}
 const tubo=(n,i)=>{const y=n?12+(4-n)*30:130, c=n?NIV[n]:[0,'#ccc','#ddd'];
   return `<svg viewBox="0 0 34 150" aria-hidden="true"><defs><linearGradient id="g${i}" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="${c[1]}"/><stop offset="1" stop-color="${c[2]}"/></linearGradient></defs>
@@ -184,11 +198,15 @@ function abrir(id,sem){atual=id; semana=sem||null; lista();
    <section class="bl padrao revela" style="animation-delay:.2s"><h3>Padrão percebido</h3><p>${esc(d.padrao||'Ainda sem padrão: são precisas 3 anotações na semana.')}</p><small>Calculado das anotações do Diário. Leitura de apoio, não diagnóstico.</small></section>
    <section class="bl revela" style="animation-delay:.26s"><h3>Mapa da Virada <small>${s.total} ${s.total===1?'uso':'usos'} · ${s.feitos} ${s.feitos===1?'concluído':'concluídos'}</small></h3>
      ${s.total?`<ul class="vir">${s.itens.map(x=>`<li><b>${esc(x.micro||'Sem micro-passo')}</b><p>${x.quando} · ${x.feito?'<span class="ok">fez</span>':'não marcou como feito'}${x.desculpas.length?' · desculpa: '+esc(x.desculpas.join(', ')):''}${x.dor.length?' · dor: '+esc(x.dor.join(', ')):''}${x.naoSou?' · “Eu não sou '+esc(x.naoSou)+'”':''}</p></li>`).join('')}</ul>`:'<p class="nada">Não usou nesta semana.</p>'}</section>
+   <section class="bl largo pacto-b revela" style="animation-delay:.3s">${r.pacto?`<div class="pacto-selo">${seloSVG(64)}</div>`:''}<h3>Pacto de Mudança <small>${r.pacto?(r.pacto.nesta_semana?'selado nesta semana · ':'')+'selado em '+r.pacto.quando+(r.pacto.total>1?' · '+r.pacto.total+' versões':''):'ainda não selado'}</small></h3>
+     ${r.pacto?`<div class="pacto-g"><div class="pacto-assin">${r.pacto.assinatura?'<svg viewBox="0 0 320 130" role="img" aria-label="Assinatura"><path id="pAss"/></svg>':''}<p class="pn">${esc(r.pacto.nome)}</p><p class="pd">${r.pacto.clausulas.length} de 5 frases assumidas${r.pacto.areas.length?' · '+esc(r.pacto.areas.join(', ')):''}</p></div>
+       <dl class="pacto-r"><dt>O que escolhe mudar</dt><dd>${esc(r.pacto.mudar||'—')}</dd><dt>Primeiro passo</dt><dd>${esc(r.pacto.passo||'—')}</dd><dt>Quando quiser desistir, vai lembrar que…</dt><dd>${esc(r.pacto.lembrete||'—')}</dd></dl></div>`:'<p class="nada">Quando ela selar o Termo de Auto-Compromisso, ele aparece aqui com a assinatura.</p>'}</section>
    <section class="bl largo revela" style="animation-delay:.32s"><h3>Anotações do Diário</h3>
      ${d.anotacoes.length?`<table class="anot"><thead><tr><th>Quando</th><th>Fuga</th><th>Gatilho</th><th>Sentimento</th><th>Depois</th></tr></thead><tbody>${d.anotacoes.map(a=>`<tr><td>${a.quando}</td><td>${esc(a.fuga)}</td><td>${esc(a.gatilho)}</td><td>${esc(a.sentimento)}</td><td>${esc(a.consequencia)}</td></tr>`).join('')}</tbody></table>`:'<p class="nada">—</p>'}</section>
    <section class="bl largo revela" style="animation-delay:.38s"><h3>Com as palavras dela <small>${r.relatos.length} ${r.relatos.length===1?'relato':'relatos'}</small></h3>
      ${r.relatos.length?`<ul class="rel">${r.relatos.map(x=>`<li><q>${esc(x.texto)}</q><small>${x.quando} · ${x.ferramenta}${x.contexto?' · '+esc(x.contexto):''}</small></li>`).join('')}</ul>`:'<p class="nada">Nenhum relato livre nesta semana.</p>'}</section>
   </div>`;
+  const pa=document.getElementById('pAss'); if(pa) pa.setAttribute('d',r.pacto.assinatura);
   $('sAnt').onclick=()=>abrir(id,desloca(semana,-7)); $('sProx').onclick=()=>abrir(id,desloca(semana,7));
   $('aLink').onclick=()=>{if(confirm('Gerar um novo link? O link atual de '+c.nome+' deixa de funcionar.')) api('cliente.novo_link',{id}).then(j=>mostraLink(j.cliente,j.chave));};
   $('aPausa').onclick=()=>api('cliente.status',{id,status:c.status==='pausada'?'ativa':'pausada'}).then(carregar);

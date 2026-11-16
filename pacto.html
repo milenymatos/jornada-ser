@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Pacto de Mudança · Jornada SER</title>
+<meta name="description" content="Termo de Auto-Compromisso do Método SER.">
+<meta name="theme-color" content="#2F1B36">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/base.css">
+<style>
+:root{--papel:#FBF8F2;--mesa:#E9DFD2}
+html,body{background:var(--violeta);transition:background-color .9s}
+body{color:var(--creme)}
+body[data-etapa="doc"],body[data-etapa="selado"]{background:var(--mesa);color:var(--ameixa)}
+html:has(body[data-etapa="doc"]),html:has(body[data-etapa="selado"]){background:var(--mesa)}
+.luz i:nth-child(1){width:340px;height:340px;right:-150px;top:-80px;background:#6B3440;opacity:.6}
+.luz i:nth-child(2){width:260px;height:260px;left:-120px;top:520px;background:#4A2A52;opacity:.6;animation-delay:-9s}
+body[data-etapa="doc"] .luz i,body[data-etapa="selado"] .luz i{opacity:.0}
+.topo{color:inherit}
+.etapa{display:none}
+.etapa.on{display:block;animation:surge 1.2s var(--suave)}
+@keyframes surge{from{opacity:0;transform:translateY(18px)}}
+/* capa: o selo fechado, grande */
+.capa{min-height:calc(100dvh - 120px);display:none;flex-direction:column}
+.capa.on{display:flex}
+.capa .selo-g{margin:26px auto 0 -6px;width:250px;height:250px;position:relative}
+.capa .selo-g svg{width:100%;height:100%;filter:drop-shadow(0 18px 30px rgba(10,4,12,.45))} /* taste-skill-ignore: o selo de cera é um objeto em relevo sobre o papel */
+.capa h1{font-family:var(--serif);font-weight:300;font-size:66px;line-height:.86;letter-spacing:-.035em;margin-top:22px}
+.capa h1 span{display:block;font-style:italic;color:var(--pessego);padding-left:1em}
+.capa .sub{font-size:17px;line-height:1.5;margin-top:22px;max-width:30ch;color:rgba(244,238,229,.86)}
+.capa .acao{margin-top:auto;padding-top:30px;display:flex;align-items:center;gap:18px}
+.capa .btn{background:var(--pessego);color:var(--violeta)}
+.capa .tempo{font-size:14px;color:rgba(244,238,229,.62)}
+/* o documento */
+.folha{position:relative;margin:18px calc(-1*var(--m) + 10px) 0;background:var(--papel);border-radius:4px;padding:34px 24px 40px}
+.folha::before{content:"";position:absolute;inset:0;border-radius:4px;pointer-events:none;opacity:.5;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.6' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 .55 0 0 0 0 .45 0 0 0 0 .38 0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23p)'/%3E%3C/svg%3E")}
+.folha>*{position:relative}
+.cabeca{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.cabeca h1{font-family:var(--serif);font-weight:400;font-size:40px;line-height:.92;letter-spacing:-.025em}
+.cabeca h1 small{display:block;font-family:var(--sans);font-size:14px;letter-spacing:0;color:var(--sec);margin-top:10px;font-weight:400}
+.abre{font-family:var(--serif);font-size:30px;line-height:1.1;margin-top:30px}
+.abre b{font-weight:500;font-style:italic;color:var(--cobre)}
+.guia{font-size:14.5px;color:var(--sec);margin-top:6px}
+.clausulas{list-style:none;padding:0;margin-top:14px}
+.cl{all:unset;cursor:pointer;display:grid;grid-template-columns:30px 1fr;gap:10px;padding:14px 4px 14px 0;width:100%;-webkit-tap-highlight-color:transparent}
+.cl span{font-family:var(--serif);font-size:22px;line-height:1.28;color:rgba(60,32,63,.62);transition:color .5s}
+.cl .gota{width:20px;height:20px;margin-top:5px;border-radius:50%;background:rgba(167,94,72,.14);position:relative;transition:background-color .4s,transform .5s var(--mola)}
+.cl[aria-pressed="true"] span{color:var(--ameixa)}
+.cl[aria-pressed="true"] .gota{background:var(--cobre);transform:scale(1.12)}
+.cl[aria-pressed="true"] .gota::after{content:"";position:absolute;left:50%;top:50%;width:6px;height:6px;margin:-3px;border-radius:50%;background:var(--pessego);opacity:.7}
+.cl:focus-visible{outline:2px solid var(--cobre);outline-offset:2px;border-radius:8px}
+.palavras{margin-top:34px;background:rgba(232,196,176,.22);margin-left:-12px;margin-right:-12px;padding:22px 12px 6px;border-radius:22px}
+.palavras h2{font-family:var(--serif);font-weight:400;font-size:32px;line-height:1;letter-spacing:-.02em}
+.rot{display:block;font-size:15px;font-weight:500;margin:22px 0 10px}
+.areas{display:flex;flex-wrap:wrap;gap:8px}
+.palavras .campo{background:rgba(255,255,255,.7);font-size:17px}
+.fecho{font-family:var(--serif);font-style:italic;font-size:24px;line-height:1.25;margin-top:34px}
+/* assinatura */
+.assina{margin-top:22px;display:grid;gap:10px}
+.nome{all:unset;box-sizing:border-box;width:100%;font-family:var(--serif);font-size:28px;font-weight:500;padding:8px 2px;background:transparent;border-bottom:2px solid rgba(60,32,63,.22)}
+.nome:focus{border-bottom-color:var(--cobre)}
+.pad{position:relative;height:150px;border-radius:18px;background:rgba(60,32,63,.05);touch-action:none;overflow:hidden}
+.pad canvas{position:absolute;inset:0;width:100%;height:100%;cursor:crosshair}
+.pad .dica{position:absolute;left:16px;bottom:14px;font-size:14px;color:var(--sec);pointer-events:none;transition:opacity .3s}
+.pad.tem .dica{opacity:0}
+.pad .limpar{all:unset;cursor:pointer;position:absolute;right:10px;top:10px;font-size:13.5px;padding:7px 12px;border-radius:999px;background:rgba(255,255,255,.8)}
+.pad:not(.tem) .limpar{display:none}
+.data{font-size:14.5px;color:var(--sec)}
+.lugar-selo{position:absolute;right:18px;bottom:-34px;width:120px;height:120px;pointer-events:none}
+.lugar-selo svg{width:100%;height:100%;filter:drop-shadow(0 10px 14px rgba(60,32,63,.3))} /* taste-skill-ignore: o selo de cera é um objeto em relevo sobre o papel */
+.fim{margin-top:56px;display:grid;gap:12px;justify-items:start}
+.falta{font-size:15px;color:var(--sec)}
+.proposta{font-size:13px;color:var(--sec);margin-top:18px}
+/* selado */
+.selado .tit{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.selado .tit .mini{width:92px;height:92px;flex:none;margin-top:14px;transform:rotate(-10deg)}
+.selado .tit .mini svg{width:100%;height:100%;filter:drop-shadow(0 8px 12px rgba(60,32,63,.28))} /* taste-skill-ignore: o selo de cera é um objeto em relevo sobre o papel */
+.selado h2.t{font-family:var(--serif);font-weight:300;font-size:46px;line-height:.9;letter-spacing:-.03em;margin-top:12px}
+.selado h2.t span{display:block;font-style:italic;color:var(--cobre);padding-left:.9em}
+.selado .quando{font-size:16px;margin-top:12px}
+.leitura .cl{cursor:default}
+.leitura .cl span{color:var(--ameixa)}
+.leitura .resp{font-family:var(--serif);font-size:22px;line-height:1.3;margin-top:4px}
+.leitura .resp.vazio{font-family:var(--sans);font-size:15px;color:var(--sec)}
+.leitura .assin-img{height:110px;margin-top:6px}
+.leitura .assin-img path{fill:none;stroke:var(--ameixa);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.leitura .nomeA{font-family:var(--serif);font-size:28px;font-weight:500}
+.acoes{margin-top:60px;display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.sec{all:unset;cursor:pointer;padding:16px 22px;border-radius:999px;background:rgba(60,32,63,.08);font-weight:600;font-size:15.5px}
+.hist{margin-top:30px}
+.hist h3{font-family:var(--serif);font-weight:400;font-size:26px}
+.hist ul{list-style:none;padding:0;margin-top:8px}
+.hist li{padding:10px 0;font-size:15px}
+.hist li+li{margin-top:2px}
+</style>
+</head>
+<body data-etapa="capa">
+<div class="luz" aria-hidden="true"><i></i><i></i></div>
+<header class="topo"><a href="index.html#hub"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M14 8H3M7 3.5 2.5 8 7 12.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>Jornada</a><span class="assin">Mileny Matos</span></header>
+<main>
+  <section class="etapa capa on" id="capa" aria-labelledby="capaT">
+    <div class="selo-g" id="seloG"></div>
+    <h1 id="capaT">Pacto de <span>Mudança</span></h1>
+    <p class="sub">O seu Termo de Auto-Compromisso. Um acordo seu, com você: o seu processo depende das suas escolhas.</p>
+    <div class="acao"><button class="btn" id="ler">Ler o pacto <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M9 3.5 13.5 8 9 12.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></button><span class="tempo">Uns 3 minutos</span></div>
+  </section>
+
+  <section class="etapa" id="doc" aria-labelledby="docT">
+    <article class="folha" id="folha">
+      <div class="cabeca"><h1 id="docT">Pacto de Mudança<small>Termo de Auto-Compromisso · Método SER</small></h1></div>
+      <p class="abre">Eu, <b id="eu"></b>,</p>
+      <p class="guia" id="guia">Toque em cada frase que você assume.</p>
+      <ul class="clausulas" id="cls"></ul>
+      <div class="palavras">
+        <h2>Com as suas palavras</h2>
+        <span class="rot" id="rotA">Onde eu mais quero mudar</span>
+        <div class="areas" id="areas" role="group" aria-labelledby="rotA"></div>
+        <label class="rot" for="mudar">O que eu escolho mudar</label>
+        <textarea class="campo" id="mudar" rows="3" maxlength="600" placeholder="Ex.: parar de me colocar sempre em último lugar"></textarea>
+        <label class="rot" for="passo">Meu primeiro passo, pequeno</label>
+        <textarea class="campo" id="passo" rows="2" maxlength="400" placeholder="Ex.: dez minutos só para mim, antes de dormir"></textarea>
+        <label class="rot" for="lembrete">Quando eu quiser desistir, vou lembrar que…</label>
+        <textarea class="campo" id="lembrete" rows="2" maxlength="400" placeholder="Com as suas palavras"></textarea>
+        <p style="height:16px"></p>
+      </div>
+      <p class="fecho" id="fecho"></p>
+      <div class="assina">
+        <label class="rot" for="nome" style="margin:10px 0 0">Seu nome</label>
+        <input class="nome" id="nome" maxlength="60" autocomplete="name" autocapitalize="words">
+        <div class="pad" id="pad"><canvas id="cv" aria-label="Espaço para assinar com o dedo" role="img"></canvas><span class="dica">Assine aqui com o dedo, se quiser</span><button class="limpar" id="limpar" type="button">Limpar</button></div>
+        <p class="data" id="data"></p>
+      </div>
+      <div class="lugar-selo" id="lugarSelo" aria-hidden="true"></div>
+    </article>
+    <div class="fim">
+      <p class="falta" id="falta" aria-live="polite"></p>
+      <button class="btn" id="selar" disabled>Selar o pacto</button>
+      <p class="proposta" id="proposta" hidden>Texto do pacto em proposta, para revisão da Mileny.</p>
+    </div>
+  </section>
+
+  <section class="etapa selado" id="selado" aria-labelledby="selT">
+    <div class="tit"><h2 class="t" id="selT">Pacto <span>selado</span></h2><div class="mini" id="seloMini"></div></div>
+    <p class="quando" id="quando"></p>
+    <article class="folha leitura" id="lido"></article>
+    <div class="acoes"><a class="btn" href="index.html#hub">Voltar à Jornada</a><button class="sec" id="renovar">Renovar o pacto</button></div>
+    <div class="hist" id="hist" hidden><h3>Pactos anteriores</h3><ul id="histL"></ul></div>
+  </section>
+</main>
+<script src="assets/config.js"></script>
+<script src="assets/jornada.js"></script>
+<script>JS.exigePerfil();</script>
+<script src="assets/pacto.js"></script>
+<script>
+const $=id=>document.getElementById(id), esc=JS.esc, perfil=JS.perfil()||{};
+const fmt=t=>new Date(t).toLocaleDateString('pt-BR',{day:'numeric',month:'long',year:'numeric'});
+const fmtH=t=>new Date(t).toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+const etapa=id=>{document.querySelectorAll('.etapa').forEach(e=>e.classList.toggle('on',e.id===id)); document.body.dataset.etapa=id; window.scrollTo(0,0);
+  document.querySelector('meta[name=theme-color]').content=id==='capa'?'#2F1B36':'#E9DFD2';};
+$('seloG').innerHTML=seloSVG(250); $('seloMini').innerHTML=seloSVG(92); $('fecho').textContent=PACTO.fecho; $('proposta').hidden=!PACTO.proposta;
+// ——— o documento ———
+const sel={cl:new Set(),areas:new Set()};
+$('cls').innerHTML=PACTO.clausulas.map(c=>`<li><button class="cl" type="button" aria-pressed="false" data-id="${c.id}"><i class="gota" aria-hidden="true"></i><span>${esc(c.txt)}</span></button></li>`).join('');
+$('areas').innerHTML=PACTO.areas.map(a=>`<button class="chip" type="button" aria-pressed="false">${esc(a)}</button>`).join('');
+document.querySelectorAll('.cl').forEach(b=>b.onclick=()=>{const on=b.getAttribute('aria-pressed')!=='true'; b.setAttribute('aria-pressed',on); on?sel.cl.add(b.dataset.id):sel.cl.delete(b.dataset.id);
+  if(on&&!JS.reduced) b.querySelector('.gota').animate([{transform:'scale(.2)'},{transform:'scale(1.35)'},{transform:'scale(1.12)'}],{duration:520,easing:'cubic-bezier(.34,1.4,.5,1)'}); falta();});
+document.querySelectorAll('#areas .chip').forEach(b=>b.onclick=()=>{const on=b.getAttribute('aria-pressed')!=='true'; b.setAttribute('aria-pressed',on); on?sel.areas.add(b.textContent):sel.areas.delete(b.textContent);});
+$('nome').oninput=falta;
+function falta(){const f=PACTO.clausulas.length-sel.cl.size, nm=$('nome').value.trim();
+  $('falta').textContent=f?`${f===1?'Falta 1 frase':'Faltam '+f+' frases'} para selar.`:!nm?'Escreva seu nome para selar.':'Tudo pronto. Quando quiser, sele o seu pacto.';
+  $('selar').disabled=!!f||!nm;}
+// ——— assinatura com o dedo: guardada como traço vetorial (leve e nítido) ———
+const cv=$('cv'), pad=$('pad'), W=320, H=130; let tracos=[], atual=null;
+function ajusta(){const r=cv.getBoundingClientRect(), d=devicePixelRatio||1; cv.width=r.width*d; cv.height=r.height*d; desenha();}
+const pt=e=>{const r=cv.getBoundingClientRect(); return [Math.round((e.clientX-r.left)/r.width*W), Math.round((e.clientY-r.top)/r.height*H)];};
+function desenha(){const c=cv.getContext('2d'), sx=cv.width/W, sy=cv.height/H; c.clearRect(0,0,cv.width,cv.height); c.lineCap=c.lineJoin='round'; c.strokeStyle='#3C203F'; c.lineWidth=2.4*sx;
+  tracos.forEach(t=>{c.beginPath(); t.forEach((p,i)=>{const x=p[0]*sx,y=p[1]*sy; if(!i) c.moveTo(x,y); else{const q=t[i-1]; c.quadraticCurveTo(q[0]*sx,q[1]*sy,(q[0]*sx+x)/2,(q[1]*sy+y)/2);}}); if(t.length===1) c.lineTo(t[0][0]*sx+.1,t[0][1]*sy); c.stroke();});}
+cv.addEventListener('pointerdown',e=>{e.preventDefault(); cv.setPointerCapture(e.pointerId); atual=[pt(e)]; tracos.push(atual); pad.classList.add('tem'); desenha();});
+cv.addEventListener('pointermove',e=>{if(!atual) return; const p=pt(e), u=atual[atual.length-1]; if(Math.hypot(p[0]-u[0],p[1]-u[1])>=2){atual.push(p); desenha();}});
+['pointerup','pointercancel'].forEach(ev=>cv.addEventListener(ev,()=>{atual=null;}));
+$('limpar').onclick=()=>{tracos=[]; pad.classList.remove('tem'); desenha();};
+addEventListener('resize',ajusta);
+function caminho(){let d=tracos.map(t=>'M'+t.map(p=>p[0]+' '+p[1]).join('L')).join(''); let passo=2;
+  while(d.length>7000&&passo<12){d=tracos.map(t=>'M'+t.filter((_,i)=>i%passo===0||i===t.length-1).map(p=>p[0]+' '+p[1]).join('L')).join(''); passo++;} return d.length>7000?'':d;}
+// ——— selar ———
+$('selar').onclick=()=>{const b=$('selar'); b.disabled=true;
+  const reg={t:Date.now(),versao:PACTO.versao,nome:$('nome').value.trim().replace(/\s+/g,' '),clausulas:[...sel.cl],areas:[...sel.areas],
+    mudar:$('mudar').value.trim(),passo:$('passo').value.trim(),lembrete:$('lembrete').value.trim(),assinatura:caminho(),desenhou:tracos.length>0};
+  JS.salvar('pacto',reg);
+  const ls=$('lugarSelo'); ls.innerHTML=seloSVG(120);
+  const fim=()=>{mostraSelado(reg); };
+  if(JS.reduced) return fim();
+  ls.scrollIntoView({block:'center',behavior:'smooth'});
+  setTimeout(()=>{ls.animate([{opacity:0,transform:'scale(2.4) rotate(-24deg)'},{opacity:1,transform:'scale(.88) rotate(-6deg)',offset:.7},{transform:'scale(1) rotate(-8deg)'}],{duration:900,easing:'cubic-bezier(.5,0,.3,1)',fill:'forwards'});
+    $('folha').animate([{transform:'none'},{transform:'translateY(3px) scale(.995)',offset:.72},{transform:'none'}],{duration:900,delay:0});
+    setTimeout(fim,2000);},500);};
+// ——— pacto selado (leitura) ———
+function folhaLida(r){const cl=PACTO.clausulas.filter(c=>(r.clausulas||[]).includes(c.id));
+  const resp=(rot,v)=>`<span class="rot">${rot}</span><p class="resp${v?'':' vazio'}">${v?esc(v):'Sem resposta.'}</p>`;
+  return `<div class="cabeca"><h1>Pacto de Mudança<small>Termo de Auto-Compromisso · Método SER</small></h1></div>
+   <p class="abre">Eu, <b>${esc(r.nome)}</b>,</p>
+   <ul class="clausulas">${cl.map(c=>`<li><div class="cl"><i class="gota" style="background:var(--cobre)"></i><span>${esc(c.txt)}</span></div></li>`).join('')}</ul>
+   <div class="palavras"><h2>Com as minhas palavras</h2>${(r.areas||[]).length?`<span class="rot">Onde eu mais quero mudar</span><p class="resp">${esc(r.areas.join(' · '))}</p>`:''}
+     ${resp('O que eu escolho mudar',r.mudar)}${resp('Meu primeiro passo, pequeno',r.passo)}${resp('Quando eu quiser desistir, vou lembrar que…',r.lembrete)}<p style="height:16px"></p></div>
+   <p class="fecho">${esc(PACTO.fecho)}</p>
+   ${r.assinatura?`<svg class="assin-img" viewBox="0 0 320 130" aria-label="Assinatura de ${esc(r.nome)}" role="img"><path d=""/></svg>`:''}
+   <p class="nomeA">${esc(r.nome)}</p><p class="data">${fmt(r.t)}, às ${fmtH(r.t)}</p>
+   <div class="lugar-selo" style="bottom:-30px">${seloSVG(120)}</div>`;}
+function mostraSelado(r){const lido=$('lido'); lido.innerHTML=folhaLida(r); const pth=lido.querySelector('.assin-img path'); if(pth) pth.setAttribute('d',r.assinatura);
+  lido.querySelector('.lugar-selo').style.transform='rotate(-8deg)';
+  const nm=(perfil.nome||'').split(' ')[0]; $('selT').innerHTML=`Pacto <span>selado${nm?', '+esc(nm):''}</span>`;
+  $('quando').textContent=`Em ${fmt(r.t)}, às ${fmtH(r.t)}. Volte a ele quando precisar lembrar da sua escolha.`;
+  const ant=JS.read('pacto').filter(x=>x.t!==r.t).sort((a,b)=>b.t-a.t);
+  $('hist').hidden=!ant.length; $('histL').innerHTML=ant.map(x=>`<li>${fmt(x.t)} · ${esc(x.nome)}</li>`).join('');
+  etapa('selado');}
+// ——— abrir o documento ———
+function abreDoc(base){etapa('doc'); const nm=perfil.nome||''; $('eu').textContent=nm||'___';
+  if(!$('nome').value) $('nome').value=nm; $('data').textContent=fmt(Date.now());
+  if(base){['mudar','passo','lembrete'].forEach(k=>$(k).value=base[k]||''); document.querySelectorAll('#areas .chip').forEach(b=>{if((base.areas||[]).includes(b.textContent)){b.setAttribute('aria-pressed','true'); sel.areas.add(b.textContent);}});}
+  requestAnimationFrame(ajusta); falta();
+  if(!JS.reduced) document.querySelectorAll('#cls li').forEach((li,i)=>li.animate([{opacity:0,transform:'translateY(14px)'},{opacity:1,transform:'none'}],{duration:700,delay:200+i*90,easing:'cubic-bezier(.2,.7,.2,1)',fill:'backwards'}));}
+$('ler').onclick=()=>abreDoc();
+$('renovar').onclick=()=>{const u=JS.read('pacto').sort((a,b)=>a.t-b.t).pop(); sel.cl.clear(); document.querySelectorAll('.cl[aria-pressed]').forEach(b=>b.setAttribute('aria-pressed','false')); $('lugarSelo').innerHTML=''; $('limpar').click(); abreDoc(u);};
+const ultimo=JS.read('pacto').sort((a,b)=>a.t-b.t).pop();
+if(ultimo) mostraSelado(ultimo); else if(!JS.reduced){$('seloG').animate([{opacity:0,transform:'scale(.7) rotate(-20deg)'},{opacity:1,transform:'none'}],{duration:1400,easing:'cubic-bezier(.2,.8,.2,1)'});}
+</script>
+</body>
+</html>
