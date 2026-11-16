@@ -1,9 +1,9 @@
 /* Pacto de Mudança (Termo de Auto-Compromisso) — Passo 3 do Método SER.
-   PROPOSTA de texto escrita a partir da descrição da Mileny na "Caixa de ferramentas":
+   Texto aprovado pelo Lucas em 15/11/2026 (versão pacto-2026-11-v1). Escrito a partir da descrição da Mileny na "Caixa de ferramentas":
    "documento simbólico, baseado na Psicologia Positiva, onde a cliente assina que compreende que o processo
-   depende das escolhas dela, tirando-a do papel de vítima das circunstâncias." Aguarda revisão da Mileny. */
+   depende das escolhas dela, tirando-a do papel de vítima das circunstâncias." */
 const PACTO = {
-  versao: 'pacto-proposta-1', proposta: true,
+  versao: 'pacto-2026-11-v1',
   clausulas: [
     { id: 'onde', txt: 'Eu reconheço onde estou hoje, sem me julgar. O cansaço que sinto no corpo, na mente e na energia é um sinal, não uma sentença.' },
     { id: 'escolhas', txt: 'Eu compreendo que a minha mudança depende das minhas escolhas. As circunstâncias pesam, mas não decidem por mim.' },
