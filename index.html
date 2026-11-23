@@ -10,6 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/base.css">
+<link rel="stylesheet" href="assets/motion.css">
 <style>
 body{padding-top:0}
 .hero{margin:0 calc(-1*var(--m));padding:max(18px,env(safe-area-inset-top)) var(--m) 34px;background:var(--violeta);color:var(--creme);
@@ -222,6 +223,7 @@ body.termo-on{padding-top:0}
 <script src="assets/termo.js"></script>
 <script src="assets/pacto.js"></script>
 <script src="assets/jornada.js"></script>
+<script src="assets/motion.js"></script>
 <script>
 const h=new Date().getHours();
 // espiral: cada registro é um passo; os marcos ficam acesos
@@ -256,14 +258,23 @@ const $=id=>document.getElementById(id), sd=JS.saudacao();
 const telas=['ab','pa','cab']; const so=id=>telas.forEach(t=>$(t).hidden=t!==id);
 function abertura(){const p=JS.perfil(); document.body.classList.add('abre'); document.body.classList.remove('termo-on'); $('termo').hidden=true; so('ab'); render(); $('trocar').disabled=false;
   $('sg').textContent=sd+','; $('nomeG').textContent=primeiro(p.nome); $('trocar').textContent=`Não é ${primeiro(p.nome)}?`; $('iniciar').hidden=false;
-  if(!JS.reduced){[...$('ab').children].forEach((el,i)=>el.animate([{opacity:0,transform:'translateY(24px)',filter:'blur(6px)'},{opacity:1,transform:'none',filter:'blur(0)'}],{duration:1100,delay:300+i*140,easing:'cubic-bezier(.2,.7,.2,1)',fill:'backwards'}));}}
+  // saudação acende palavra por palavra, com desfoque suave; o botão chega depois
+  let w=JM.acende($('sg'),350); w=JM.acende($('nomeG'),500,w); JM.acende(document.querySelector('#ab .lema'),900,w);
+  if(!JS.reduced){[$('iniciar'),$('trocar')].forEach((el,i)=>el.animate([{opacity:0,transform:'translateY(18px)'},{opacity:1,transform:'none'}],{duration:1100,delay:1500+w*60+i*160,easing:'cubic-bezier(.22,1,.36,1)',fill:'backwards'}));}}
 const primeiro=n=>String(n||'').split(' ')[0];
 function entrada(msg){try{render();}catch(e){} document.body.classList.add('abre'); $('termo').hidden=true; document.body.classList.remove('termo-on'); so('pa'); $('sg2').textContent=sd+'.'; $('paMsg').textContent=msg||'Abra a Jornada pelo link pessoal que a Mileny te enviou, ou cole o link aqui.';}
 function aviso(titulo,texto){document.body.classList.add('abre'); so('ab'); $('sg').textContent=titulo; $('nomeG').textContent=''; $('iniciar').hidden=true; $('trocar').textContent=texto; $('trocar').disabled=true;}
 function hub(animar){const hero=document.querySelector('.hero'), esp=document.querySelector('.espiral'); const h1=hero.offsetHeight, r1=esp.getBoundingClientRect();
   so('cab'); document.body.classList.remove('abre'); render(); sinc(JS.status());
   const p=JS.perfil(); $('sgp').textContent=`${sd}, ${primeiro(p.nome)}`;
-  if(!animar||JS.reduced) return; const h2=hero.offsetHeight, r2=esp.getBoundingClientRect();
+  JM.conta($('nPassos'),+$('nPassos').textContent,animar?1600:900);
+  if(JS.reduced) return;
+  if(!animar){JM.sequencia(document.querySelectorAll('.card'),{atraso:120,passo:80,dist:22,dur:800}); return;}
+  if(animar==='espiral'){const esp2=document.querySelector('.espiral');
+    esp2.animate([{opacity:0,transform:'rotate(-40deg) scale(.8)'},{opacity:.95,transform:'none'}],{duration:1100,delay:420,easing:'cubic-bezier(.22,1,.36,1)',fill:'backwards'});
+    [...$('cab').children].forEach((el,i)=>el.animate([{opacity:0,transform:'translateY(14px)'},{opacity:1,transform:'none'}],{duration:900,delay:300+i*80,easing:'cubic-bezier(.22,1,.36,1)',fill:'backwards'}));
+    JM.sequencia(document.querySelectorAll('.card'),{atraso:700,passo:100,dist:30,dur:950}); return;}
+  const h2=hero.offsetHeight, r2=esp.getBoundingClientRect();
   esp.animate([{transformOrigin:'0 0',transform:`translate(${r1.left-r2.left}px,${r1.top-r2.top}px) scale(${r1.width/r2.width})`},{transformOrigin:'0 0',transform:'none'}],{duration:1100,easing:'cubic-bezier(.7,0,.2,1)'});
   hero.animate([{height:h1+'px',borderRadius:'0 0 0 0'},{height:h2+'px',borderRadius:'0 0 44px 44px'}],{duration:1000,easing:'cubic-bezier(.7,0,.2,1)'});
   [...$('cab').children].forEach((el,i)=>el.animate([{opacity:0,transform:'translateY(18px)'},{opacity:1,transform:'none'}],{duration:800,delay:450+i*90,easing:'cubic-bezier(.2,.7,.2,1)',fill:'backwards'}));
@@ -281,7 +292,14 @@ $('tNao').onclick=()=>{$('tErro').textContent='Tudo bem. Sem o seu aceite, o app
 function sinc(s){const el=$('sinc'); if(!el) return; el.dataset.estado=s.pendentes?(s.enviando?'enviando':'fila'):'ok';
   el.querySelector('span').textContent=s.pendentes?(s.enviando?`Enviando ${s.pendentes} ${s.pendentes>1?'registros':'registro'}…`:`${s.pendentes} ${s.pendentes>1?'registros guardados':'registro guardado'} aqui, ${s.pendentes>1?'serão enviados':'será enviado'} quando a conexão voltar`):'Tudo guardado com a Mileny';}
 document.addEventListener('jornada:sync',e=>sinc(e.detail)); addEventListener('offline',()=>sinc(JS.status()));
-$('iniciar').onclick=()=>{history.replaceState(null,'',location.pathname+location.search+'#hub'); hub(true);};
+$('iniciar').onclick=()=>{const vai=modo=>{history.replaceState(null,'',location.pathname+location.search+'#hub'); hub(modo);};
+  // espiral que se abre: gira devagar, se expande e revela o hub por dentro de um braço de espiral
+  const pode=window.CSS&&CSS.supports('clip-path','polygon(0 0,1px 0,0 1px)')&&window.requestAnimationFrame;
+  if(JS.reduced) return vai(false);
+  if(!pode) return vai(true);
+  window.scrollTo(0,0); const sv=document.querySelector('.espiral svg'), m=sv.getScreenCTM(), c={x:m.a*200+m.c*176+m.e,y:m.b*200+m.d*176+m.f};
+  $('iniciar').disabled=true;
+  JM.abreEspiral({hero:document.querySelector('.hero'),svg:sv,centro:c,trocar:()=>vai('espiral'),dur:1150}).then(()=>{$('iniciar').disabled=false;});};
 $('trocar').onclick=()=>{JS.sair(); history.replaceState(null,'',location.pathname); location.reload();};
 $('paLink').oninput=()=>{$('paBtn').disabled=!$('paLink').value.trim();};
 $('pa').onsubmit=e=>{e.preventDefault(); const v=$('paLink').value.trim(); const m=v.match(/[?&]k=([^&#\s]+)/); entrarCom(m?decodeURIComponent(m[1]):v);};

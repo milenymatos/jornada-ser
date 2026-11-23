@@ -10,6 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/base.css">
+<link rel="stylesheet" href="assets/motion.css">
 <style>
 html,body{background:var(--noite)}
 body{color:var(--creme);--grao:.13;padding-bottom:calc(40px + env(safe-area-inset-bottom))}
@@ -147,6 +148,7 @@ h2{font-family:var(--serif);font-weight:400;font-size:36px;line-height:1.02;lett
 
 <script src="assets/config.js"></script>
 <script src="assets/jornada.js"></script>
+<script src="assets/motion.js"></script>
 <script>JS.exigePerfil();</script>
 <script>
 // Textos do "Kit de Emergência: O Mapa da Virada" (Mileny Matos)
@@ -163,7 +165,12 @@ const VOZ=['“Eu reconheço que este ‘baixo’ é parte natural do processo d
 const MICRO=['Respirar 5 vezes fundo','Comer um pedaço pequeno e saborear, sem culpa','Abrir o arquivo e ler uma frase','Treinar uma vez, em menos tempo'];
 const reg={t:Date.now(),respostas:[],naoSou:'',micro:'',feito:false};
 const $=id=>document.getElementById(id); const esc=t=>String(t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-function vai(n){document.querySelectorAll('.etapa').forEach(e=>e.classList.toggle('on',e.id==='e'+n)); window.scrollTo(0,0);
+// fio de progresso orgânico do Mapa (aparece depois do início) e passagem suave entre etapas
+const fio=JM.progresso('#F4EEE5');
+function vai(n){const sai=document.querySelector('.etapa.on'); if(sai&&sai.id!=='e'+n) JM.fantasma(sai);
+  document.querySelectorAll('.etapa').forEach(e=>e.classList.toggle('on',e.id==='e'+n)); window.scrollTo(0,0);
+  fio.mostra(n>0&&n<6); fio.vai(n/5);
+  if(n===6) JM.linha(document.querySelector('#e6 > p'),{apos:true,comOk:false,atraso:900});
   const h=$('e'+n).querySelector('h1,h2,.voz,.rot'); if(h){h.setAttribute('tabindex','-1'); h.focus({preventScroll:true});}}
 // histórico
 const hist=JS.read('sos').filter(x=>x.micro).slice(-3).reverse();
@@ -186,8 +193,8 @@ function acabou(){parar=true; timers.forEach(clearTimeout); vai(2); pergunta(0);
 $('pular').onclick=acabou;
 
 let qi=0;
-function pergunta(i){qi=i; const d=Q[i]; $('q').textContent=d.q; $('qEx').textContent=d.ex; $('qEx').hidden=!d.ex; $('qTxt').value='';
-  document.querySelectorAll('#e2 .passos i').forEach((x,k)=>{x.classList.toggle('on',k<=i); x.classList.toggle('agora',k===i);});
+function pergunta(i){if(i>0) JM.fantasma($('e2')); qi=i; const d=Q[i]; $('q').textContent=d.q; $('qEx').textContent=d.ex; $('qEx').hidden=!d.ex; $('qTxt').value='';
+  document.querySelectorAll('#e2 .passos i').forEach((x,k)=>{x.classList.toggle('on',k<=i); x.classList.toggle('agora',k===i);}); fio.vai((2+i*.33)/5);
   const c=$('qChips'); c.innerHTML=''; d.c.forEach(s=>{const b=document.createElement('button'); b.className='chip'; b.textContent=s; b.setAttribute('aria-pressed','false');
     b.onclick=()=>b.setAttribute('aria-pressed',b.getAttribute('aria-pressed')!=='true'); c.append(b);});
   if(i>0){const s=$('e2'); s.classList.remove('on'); void s.offsetWidth; s.classList.add('on'); window.scrollTo(0,0);}}

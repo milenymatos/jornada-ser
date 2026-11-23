@@ -10,6 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/base.css">
+<link rel="stylesheet" href="assets/motion.css">
 <style>
 .luz i:nth-child(1){width:300px;height:300px;right:-140px;top:60px;background:#E8C4B0}
 .luz i:nth-child(2){width:260px;height:260px;left:-150px;top:520px;background:#D9CCDA;animation-delay:-9s}
@@ -108,6 +109,7 @@ h1 span{display:block;font-style:italic;font-weight:300;color:var(--cobre);paddi
 
 <script src="assets/config.js"></script>
 <script src="assets/jornada.js"></script>
+<script src="assets/motion.js"></script>
 <script>JS.exigePerfil();</script>
 <script>
 // Vocabulário do documento "Diário de Fugas e Gatilhos" (Mileny Matos)
@@ -154,6 +156,7 @@ monta(); atualiza(); addEventListener('resize',atualiza); document.fonts&&docume
 $('f').onsubmit=e=>{e.preventDefault();
   JS.push('diario',{t:Date.now(),fuga:val('fuga'),gat:val('gat'),gatChip:sel.gat.chip,sent:val('sent'),cons:val('cons'),consLista:[...sel.cons.chips],consTexto:sel.cons.txt,relato:$('relato').value.trim()});
   Object.values(sel).forEach(s=>{s.chip=null;s.txt='';}); sel.cons.chips=[]; $('relato').value=''; monta(); atualiza(); lista(true);
+  JM.linha(document.querySelector('.ent.novo'),{atraso:700});
   setTimeout(()=>document.querySelector('.semana').scrollIntoView({behavior:JS.reduced?'auto':'smooth'}),80);};
 // exemplos a partir do exemplo do próprio documento; somem quando ela anota
 const EX=[{d:0,h:'10:30',fuga:'Redes sociais',gat:'Projeto novo no trabalho',sent:'Medo de falhar',cons:'Culpa',relato:''},

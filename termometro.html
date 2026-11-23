@@ -9,6 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/base.css">
+<link rel="stylesheet" href="assets/motion.css">
 <style>
 :root{--chao:#F4EEE5;--l1:#E9C9A4;--l2:#E8C4B0;--l3:#D9CCDA;--merc:#A75E48;--mercTopo:#E39A73}
 html,body{background:var(--chao);transition:background-color 1.4s}
@@ -144,6 +145,7 @@ h2{font-family:var(--serif);font-weight:500;font-size:29px;line-height:1.05;lett
 
 <script src="assets/config.js"></script>
 <script src="assets/jornada.js"></script>
+<script src="assets/motion.js"></script>
 <script>JS.exigePerfil();</script>
 <script>
 // Textos do PDF "Termômetro do SER" (Mileny Matos)
@@ -178,11 +180,12 @@ function mercurio(n){const y=TOP[n]; const m=$('merc'); m.style.y=y+'px'; m.styl
   if(!JS.reduced){m.animate([{transform:'scaleY(.97)'},{transform:'scaleY(1)'}],{duration:900,easing:'cubic-bezier(.34,1.6,.5,1)'});}}
 function escolhe(n){nivel=n; sintoma=null; body.dataset.n=n; mercurio(n);
   esc.querySelectorAll('.niv').forEach(b=>b.setAttribute('aria-pressed',b.dataset.n==n));
-  $('lNome').textContent=N[n].nome; const nm=((JS.perfil()||{}).nome||'').split(' ')[0]; document.querySelector('.hoje').textContent=nm?`${nm}, hoje você está em`:'Hoje, você está em'; $('lDesc').textContent=N[n].desc;
+  JM.troca($('lNome'),N[n].nome); const nm=((JS.perfil()||{}).nome||'').split(' ')[0]; document.querySelector('.hoje').textContent=nm?`${nm}, hoje você está em`:'Hoje, você está em'; $('lDesc').textContent=N[n].desc;
   const c=$('sint'); c.innerHTML='';
   [...N[n].sint,...EXTRA].forEach(s=>{const b=document.createElement('button'); b.className='chip'; b.textContent=s; b.setAttribute('aria-pressed','false');
     b.onclick=()=>{const on=b.getAttribute('aria-pressed')!=='true'; c.querySelectorAll('.chip').forEach(x=>x.setAttribute('aria-pressed','false')); b.setAttribute('aria-pressed',on); sintoma=on?s:null; pode();}; c.append(b);});
-  const s=$('salvar'); s.firstChild.textContent='Registrar hoje '; pode(); $('acao').classList.remove('on');
+  JM.sequencia(c.querySelectorAll('.chip'),{atraso:280,passo:45,dist:10,dur:700});
+  const s=$('salvar'); s.firstChild.textContent='Registrar hoje '; pode(); $('acao').classList.remove('on'); document.querySelectorAll('.acoes .jm-linha').forEach(x=>x.remove());
   const l=$('leitura'); l.classList.remove('revela'); void l.offsetWidth; l.classList.add('revela');
   if(navigator.vibrate) navigator.vibrate(8);}
 const pode=()=>{$('salvar').disabled=!(nivel&&(sintoma||$('sintTxt').value.trim()));};
@@ -190,8 +193,9 @@ $('sintTxt').oninput=pode;
 $('salvar').onclick=()=>{
   JS.push('termo',{t:Date.now(),dia:JS.dayKey(),nivel,sintoma,sintomaTexto:$('sintTxt').value.trim(),gatilho:$('gat').value.trim()});
   const s=$('salvar'); s.disabled=true; s.firstChild.textContent='Registrado ';
+  JM.linha(document.querySelector('.acoes'),{atraso:150});
   const a=N[nivel]; $('aTit').textContent=a.acao; $('aLista').innerHTML=a.itens.map(i=>`<li>${i}</li>`).join(''); $('aSos').hidden=nivel<4;
-  const ac=$('acao'); ac.classList.add('on','revela'); setTimeout(()=>ac.scrollIntoView({behavior:JS.reduced?'auto':'smooth',block:'start'}),120);
+  const ac=$('acao'); ac.classList.add('on','revela'); setTimeout(()=>ac.scrollIntoView({behavior:JS.reduced?'auto':'smooth',block:'start'}),JS.reduced?120:2000);
   semana(true);};
 // partículas de calor saindo do mercúrio: mais rápidas e numerosas quanto mais quente
 const RIT={1:[1400,6000],2:[900,5000],3:[450,3600],4:[200,2600]};
